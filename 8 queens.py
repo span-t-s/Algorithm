@@ -16,7 +16,8 @@ def revise(board,row,col):
         if col+row-i >= 0:
             board[i][(col+row-i)]=0
 
-feasible_solution = []
+solutions = []
+
 def deploy(board_test,row):
     if board_test[row] == [0]*board_size:
         return
@@ -25,9 +26,14 @@ def deploy(board_test,row):
             board_new = copy.deepcopy(board_test)
             board_new[row][col] = 1
             if row == board_size-1:
-                feasible_solution.append(board_new)
+                solutions.append(board_new)
                 continue
             revise(board_new,row,col)
             deploy(board_new, row+1)
 
 deploy(board, 0)
+print(len(solutions))
+for solution in solutions:
+    for row in solution:
+        print(row)
+    print('\n')
